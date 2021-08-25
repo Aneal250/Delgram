@@ -1,24 +1,35 @@
-import logo from './logo.svg';
+import React, { useState, useEffect} from 'react';
+import { BrowserRouter as Router } from "react-router-dom";
 import './App.css';
 
+
+
+
 function App() {
+    const [ user, setUser] = useState('')
+    const [ name, setName] = useState('')
+    const [ username, setUserName] = useState('')
+    const [ number, setMobile] = useState('')
+    const [ stack, setStack] = useState('')
+    const [ password, setPassword] = useState('')
+
+
+    const Login = async () => {
+            
+    }
+
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <>
+    <Router>
+      <div className="App">
+
+    
+     
     </div>
+    </Router>
+    </>
   );
 }
 
