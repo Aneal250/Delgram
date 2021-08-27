@@ -7,9 +7,7 @@ import Footer from '../Pages/Footer';
 import './Login.css'
 const imgPath = process.env.PUBLIC_URL;
 
-function Login(props) {
-
-        const { username, setUserName, password, setPassword, HandleLogin } = props
+function Login() {
     return (
         <>
        <Router>
@@ -22,23 +20,14 @@ function Login(props) {
                 </div>
                 <form d-flex justify-content-center >
 `                     <div class="mb-3">
-                         <input type="email" 
-                         class="form-control" id="Name" 
-                         placeholder="Email or UserName or Mobile Number"
-                         value={username}
-                         onChange={(e) =>  setUserName(e.target.value)}/>
+                         <input type="email" class="form-control" id="Name" placeholder="Email or UserName or Mobile Number"/>
                     </div>
                     <div class="mb-3">
-                         <input type="password" 
-                         class="form-control" id="Name" 
-                         placeholder="Password"
-                         value={password}
-                         onChange={(e) =>  setPassword(e.target.value)}
-                         /> 
+                         <input type="password" class="form-control" id="Name" placeholder="Password"/>
                     </div>
                 
                        <div className="btn_google">              
-                        <button type="button" class="btn btn-primary" onClick={HandleLogin}>Login</button>
+                        <button type="button" class="btn btn-primary">Create Account</button>
                     
                     </div>
 

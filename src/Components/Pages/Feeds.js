@@ -25,7 +25,7 @@ function Feeds() {
                                 <img src={`${imgPath}./img/feed_icon_picture.svg`} alt="Picture"  className="feed_icon"/>
                                 <img src={`${imgPath}./img/feed_icon_video.svg`} alt="video"  className="feed_icon"/>
                             </div>
-                            <div className="col-6 d-flex justify-content-end">
+                            <div className="col-6" button-container>
                                 <button type="button" class="btn btn-primary">Post</button>
                             </div>
                         </div>
