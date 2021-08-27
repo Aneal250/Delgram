@@ -1,5 +1,9 @@
 import React from 'react'
-import Footer from './Footer';
+import {
+    BrowserRouter as Router, Switch, Route,
+    Link
+  } from "react-router-dom";  
+import Footer from '../Pages/Footer';
 import './Login.css'
 const imgPath = process.env.PUBLIC_URL;
 
@@ -7,7 +11,8 @@ function Login(props) {
 
         const { username, setUserName, password, setPassword, HandleLogin } = props
     return (
-       
+        <>
+       <Router>
         <div className="container">
         <div className="row gx-3 section">
             <div className="col-md-6  my-auto mx-auto">
@@ -44,7 +49,11 @@ function Login(props) {
                 {/* instagram Image */}
                 <div className="container">
                     <div>
+                    <Link to="/SignUp">
                         <button type="button" class="btn btn-light btn-account">Already Have an Account? <span>Sign In</span></button>
+                    </Link>
+               
+           
                     </div>
 
                     <div>
@@ -64,8 +73,12 @@ function Login(props) {
                 </div>
             </div>
         </div>
+        
         <Footer/>
+       
     </div>
+    </Router>
+   </> 
     )
 }
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import Footer from './Footer';
+import Footer from '../Pages/Footer';
 import './SignUp.css'
 const imgPath = process.env.PUBLIC_URL;
 
@@ -80,7 +80,7 @@ function SignUp() {
                 </div>
             </div>
 
-            <Footer/>
+           <Footer/>
 
         </div>
     )
