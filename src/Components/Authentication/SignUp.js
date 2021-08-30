@@ -1,9 +1,54 @@
-import React from 'react'
+import React, { useState, useEffect} from 'react';
+import { useHistory } from 'react-router';
+import axios from "axios";
 import Footer from '../Pages/Footer';
 import './SignUp.css'
+import { Link } from 'react-router-dom';
 const imgPath = process.env.PUBLIC_URL;
 
 function SignUp() {
+    
+    const Location = useHistory()
+
+    const [ user, setUser] = useState('')
+    const [ firstName, setFirstName] = useState('')
+    const [ lastName, setLastName] = useState('')
+    const [ email, setEmail] = useState('')
+    const [ phoneNumber, setPhoneNumber] = useState('')
+    const [ userName, setuserName] = useState('')   
+    const [ stack, setStack] = useState('')
+    const [ password, setPassword] = useState('')
+
+
+    const HandleSign = async (e) => {
+        e.preventDefault()
+        const dataSign = { firstName, lastName, email, phoneNumber, userName, stack, password};
+        console.log(dataSign);
+        try {
+            let res = await axios.post(
+              "https://ict-del-gram-app.herokuapp.com/api/users/signup",
+              {
+                userName,
+                firstName,
+                lastName,
+                email,
+                phoneNumber,
+                stack,
+                password,
+              }
+            );
+            alert("Registration successful");
+            Location.push('/Login')
+          
+            
+          } catch (error) {
+            console.error(error);
+            alert ('Registration Failed, Email already exists, Try Again');
+          }
+        };
+      
+    
+
     return (
         <div className="container">
             <div className="row gx-3 section">
@@ -13,31 +58,43 @@ function SignUp() {
                         <img src={`${imgPath}./img/del-logo.png`} alt="" className="img_logo" />
                     </div>
                     <form >
-  `                     <div class="mb-3">
-                             <input type="email" class="form-control" id="Name" placeholder="Full Name"/>
+                        <div class="mb-3">
+                             <input type="email" class="form-control" 
+                             id="Name" placeholder="First Name" 
+                             value={firstName} onChange={(e) => setFirstName(e.target.value)}/>
                         </div>
                         <div class="mb-3">
-                             <input type="email" class="form-control" id="Name" placeholder="Email"/>
+                             <input type="email" class="form-control"
+                              id="Name" placeholder="Last Name" 
+                              value={lastName} onChange={(e) => setLastName(e.target.value)}/>
+                        </div>
+
+                        <div class="mb-3">
+                             <input type="email" class="form-control" 
+                             id="Name" placeholder="Email"
+                             value={email} onChange={(e) => setEmail(e.target.value)}/>
                         </div>
                         <div class="mb-3">
-                             <input type="email" class="form-control" id="Name" placeholder="Username"/>
+                             <input type="email" class="form-control" id="Name" placeholder="userName"
+                              value={userName} onChange={(e) => setuserName(e.target.value)}/>
                         </div>
+
                         <div class="mb-3">
                         <div class="row  align-items-center">
                             <div class="col-6">
-                                <input type="text" class="form-control" id="Name" placeholder="Mobile Number" />
+                                <input type="text" class="form-control" 
+                                id="Name" placeholder="Mobile Number"
+                                value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)}/>
                             </div>
                             <div className="col-6">
-                                <select id="Stack" class="form-select">
-                                    <option>FrontEnd</option>
-                                    <option>Backend</option>
-                                    <option>Andriod</option>
-                                    <option>UI/UX</option>
+                                <select id="Stack" class="form-select" value={stack}>
+                                    <option onClick={(e) => setStack(e.target.value)}>FrontEnd</option>
+                                    <option onClick={(e) => setStack(e.target.value)}>Backend</option>
+                                    <option onClick={(e) => setStack(e.target.value)}>Andriod</option>
+                                    <option onClick={(e) => setStack(e.target.value)}>UI/UX</option>
                                 </select>
                             </div>
-                            {/* <div class="col-6">
-                                <input type="text" class="form-control" id="Name" placeholder="Stack" />
-                             </div> */}
+                           
                         </div>
                         
                         </div>
@@ -45,10 +102,12 @@ function SignUp() {
                         <div className="btn_google">
 
                             <div class="mb-3">
-                                <input type="password" class="form-control" id="Name" placeholder="Password"/>
+                                <input type="password" class="form-control" 
+                                id="Name" placeholder="Password"
+                                value={password} onChange={(e) => setPassword(e.target.value)}/>
                             </div>
                        
-                            <button type="button" class="btn btn-primary">Create Account</button>
+                            <button type="button" class="btn btn-primary" onClick={HandleSign}>Create Account</button>
                         
                         </div>
 
@@ -59,7 +118,9 @@ function SignUp() {
                     {/* instagram Image */}
                     <div className="container">
                         <div>
-                            <button type="button" class="btn btn-light btn-account">Already Have an Account? <span>Sign In</span></button>
+                            <Link to="/Login">
+                                <button type="button" class="btn btn-light btn-account">Already Have an Account?  Sign In</button>
+                            </Link>
                         </div>
 
                         <div>

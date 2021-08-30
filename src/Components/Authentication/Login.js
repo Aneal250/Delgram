@@ -1,16 +1,52 @@
-import React from 'react'
-import {
-    BrowserRouter as Router, Switch, Route,
-    Link
-  } from "react-router-dom";  
+import React, { useState } from 'react'
+import { Link, useHistory } from "react-router-dom";  
+import axios from 'axios';
 import Footer from '../Pages/Footer';
 import './Login.css'
 const imgPath = process.env.PUBLIC_URL;
 
 function Login() {
+
+    const Location = useHistory()
+
+    const [ userName, setuserName] = useState('') 
+    const [ password, setPassword] = useState('')
+    const [ user, setUser] = useState('')
+
+
+    const HandleSignIn = async (e) => {
+        e.preventDefault();
+        console.log(userName, password)
+        console.log("submitted");
+        try {
+          let res = await axios.post(
+            "https://ict-del-gram-app.herokuapp.com/api/users/login",
+            {
+              userName,
+              password,
+            }
+          );
+          console.log(res)
+          let user = res.data.user._id
+          let token = res.data.token
+          console.log(res.data.user._id);
+          localStorage.setItem('user', JSON.stringify(user))
+          localStorage.setItem('token', JSON.stringify(token))
+          setUser(user);
+    
+    
+          Location.push("/Home")
+    
+        } catch (error) {
+            alert("Incorrect Password/ user does not exist")
+          console.error(error);
+        }
+      };
+    
+
     return (
         <>
-       <Router>
+       
         <div className="container">
         <div className="row gx-3 section">
             <div className="col-md-6  my-auto mx-auto">
@@ -20,14 +56,18 @@ function Login() {
                 </div>
                 <form d-flex justify-content-center >
 `                     <div class="mb-3">
-                         <input type="email" class="form-control" id="Name" placeholder="Email or UserName or Mobile Number"/>
+                         <input type="email" class="form-control" 
+                         id="Name" placeholder="UserName"
+                         value={userName} onChange={(e) => setuserName(e.target.value)}/>
                     </div>
                     <div class="mb-3">
-                         <input type="password" class="form-control" id="Name" placeholder="Password"/>
+                         <input type="password" class="form-control" 
+                         id="Name" placeholder="Password"
+                         value={password} onChange={(e) => setPassword(e.target.value)}/>
                     </div>
                 
                        <div className="btn_google">              
-                        <button type="button" class="btn btn-primary">Create Account</button>
+                        <button type="button" class="btn btn-primary" onClick={HandleSignIn}>Login</button>
                     
                     </div>
 
@@ -38,8 +78,8 @@ function Login() {
                 {/* instagram Image */}
                 <div className="container">
                     <div>
-                    <Link to="/SignUp">
-                        <button type="button" class="btn btn-light btn-account">Already Have an Account? <span>Sign In</span></button>
+                    <Link to="/">
+                        <button type="button" class="btn btn-light btn-account">Don't Have an Acount&nbsp;? &nbsp;&nbsp; &nbsp;&nbsp;Sign Up</button>
                     </Link>
                
            
@@ -66,7 +106,7 @@ function Login() {
         <Footer/>
        
     </div>
-    </Router>
+
    </> 
     )
 }
